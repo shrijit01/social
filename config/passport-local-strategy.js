@@ -16,7 +16,7 @@ passport.use(new LocalStrategy({// TELLING PASSPORT TO USE LOCAL STRATEGY
         const foundUser = await User.findOne({email:email})
             if(!foundUser){
                 console.log('Error in finding user');
-                return done(err);
+                return done(Error);
             }
             if(!foundUser || foundUser.password != password){
                 console.log('Invalid Username/Password');
