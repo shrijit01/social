@@ -1,0 +1,27 @@
+<li>
+    <p>     
+        <%if(comment.user.name == post.user.name){%>
+                <%if(locals.user && locals.user.id == comment.user.id){%>
+                        <small>
+                                <a href="/comments/destroy/<%= comment.id %>">X</a>
+                        </small>
+                <%}%>
+                <small style="color: rgb(7, 110, 18);">
+                        Admin :- <%= comment.user.name %>
+                </small>
+                <br>
+                <%= comment.comment %>
+        <%}else{%>
+                <%if(locals.user && locals.user.id == comment.user.id){%>
+                        <small>
+                                <a href="/comments/destroy/<%= comment.id %>">X</a>
+                        </small>
+                <%}%>
+                <small style="color: rgb(7, 110, 18);">
+                        <%= comment.user.name %>
+                </small>
+                <br>
+                <%= comment.comment %>
+        <%}%>
+</p>
+</li>

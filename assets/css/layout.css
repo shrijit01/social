@@ -7,15 +7,14 @@ html, body {
   height: 100%;
   width: 100%; }
   html div, body div {
-    height: 200%;
-    width: 100%; }
+    height: 100%; }
 
 #nav {
   display: flex;
   padding: 5px;
   align-items: center;
   justify-content: space-between;
-  height: 5%;
+  height: 10%;
   background-color: #4c9af7; }
   #nav span {
     font-weight: bold;
