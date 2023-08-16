@@ -5,7 +5,9 @@ const passport = require('passport');//fetched existing instance
 //home controller for getting the home page data from controller
 const usersController = require('../controllers/users_controller');
 
-router.get('/profile',usersController.profile);
+router.get('/profile/:id',usersController.profile);//passport.checkAuthentication
+router.post('/update/:id',usersController.update);
+
 router.get('/sign-up',usersController.signUp);
 router.get('/sign-in',usersController.signIn);
 

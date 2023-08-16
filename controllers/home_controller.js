@@ -1,5 +1,6 @@
 
 const Post = require('../models/post');
+const User = require('../models/user');
 
 
 
@@ -14,8 +15,10 @@ module.exports.home = async function(req,res){
         }
     })
     .exec();
+    let foundUser = await User.find({})
     return res.render('home',{
         tittle:"Home",
-        foundPost:foundPost
+        foundPost:foundPost,
+        all_users:foundUser
     });
 }
