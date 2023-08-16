@@ -18,7 +18,7 @@ module.exports.create = async function(req,res){
         }
         
     }catch(err){
-        console.log(err);
+        console.log("Error",err);
     }
     
 }
@@ -38,7 +38,7 @@ module.exports.destroy = async function(req,res){
             return res.redirect('back');
         }
     }catch(err){
-        console.error(err);
+        console.error("Error",err);
         return res.redirect('back');
     }
 

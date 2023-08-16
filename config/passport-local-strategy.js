@@ -9,17 +9,20 @@ const User = require('../models/user');
 
 /* USING THE LOCAL STRATEGY TO AUTHENTICATE USER USING PASSPORT */
 passport.use(new LocalStrategy({// TELLING PASSPORT TO USE LOCAL STRATEGY
-        usernameField:'email'//USER NAME FIELD
+        usernameField:'email',//USER NAME FIELD
+        passReqToCallback :true
     },
-    async function(email,password,done){
+    async function(req,email,password,done){
         /* FIND THE USER AND ESTABLISH A IDENTITY */
         const foundUser = await User.findOne({email:email})
             if(!foundUser){
-                console.log('Error in finding user');
+                req.flash('error',err);
+                // console.log('Error in finding user');
                 return done(Error);
             }
             if(!foundUser || foundUser.password != password){
-                console.log('Invalid Username/Password');
+                req.flash('error','Invalid Username/Password');
+                // console.log('Invalid Username/Password');
                 /* THERE IS NO ERROR BUT USER IS NOT FOUND THATS WHY SECOND PARAM IS FALSE */
                 return done(null,false)
             }

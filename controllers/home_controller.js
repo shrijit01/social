@@ -6,7 +6,8 @@ const User = require('../models/user');
 
 /* POPULATE THE USER OF EACH POST  */
 module.exports.home = async function(req,res){
-    let foundPost = await Post.find({})
+    try{
+        let foundPost = await Post.find({})
     .populate('user')
     .populate({
         path : 'comments',
@@ -21,4 +22,8 @@ module.exports.home = async function(req,res){
         foundPost:foundPost,
         all_users:foundUser
     });
+    }catch(err){
+        console.log("Error",err);
+        return;
+    }
 }

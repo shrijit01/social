@@ -1,32 +1,36 @@
 <li>
-    <%if(locals.user && locals.user.id == post.user.id){%>
-            <small>
-                    <a href="/posts/destroy/<%= post.id %>">X</a>
-            </small>
-    <%}%>
-    
-    <small>
-            <b><%= post.user.name.toUpperCase() %></b>
-    </small>
-    <br>
-    <li><%= post.content %></li>
-    <br>
-    <div id="post-comments">
-            <% if(locals.user){ %>
-                    <form action="/comments/create" method="POST">
-                            <input type="text" name="comment" placeholder="Type Something here." required>
-                            <input type="hidden" name="post" value="<%= post._id %>">
-                            <input type="submit" value="Add comment">
-                    </form>   
-            <%}%>
-            <div class="post-comments-list">
-                    <ul id="post-comments-<%= post._id %>">
-                            <% for(comment of post.comments){%>
-                                    
-                            <%}%>
-                    </ul>
-            </div>
-    </div>
-    <hr style="width: 50%;border: 2px solid grey;">
-    <br>
+        <%if(locals.user && locals.user.id==post.user.id){%>
+                <small>
+                        <a href="/posts/destroy/<%= post.id %>">X</a>
+                </small>
+                <%}%>
+
+                        <small>
+                                <b>
+                                        <%= post.user.name.toUpperCase() %>
+                                </b>
+                        </small>
+                        <br>
+<li>
+        <%= post.content %>
+</li>
+<br>
+<div id="post-comments">
+        <% if(locals.user){ %>
+                <form action="/comments/create" method="POST">
+                        <input type="text" name="comment" placeholder="Type Something here." required>
+                        <input type="hidden" name="post" value="<%= post._id %>">
+                        <input type="submit" value="Add comment">
+                </form>
+                <%}%>
+                        <div class="post-comments-list">
+                                <ul id="post-comments-<%= post._id %>">
+                                        <% for(comment of post.comments){%>
+                                                <%- include('_comment')%>
+                                        <%}%>
+                                </ul>
+                        </div>
+</div>
+<hr style="width: 50%;border: 2px solid grey;">
+<br>
 </li>

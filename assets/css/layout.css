@@ -11,7 +11,7 @@ html, body {
     width: 100%; }
 
 #layout-main {
-  height: 75%;
+  height: 100%;
   width: 100%; }
 
 #nav {
@@ -41,7 +41,7 @@ footer {
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: 0;
+  bottom: -124vh;
   height: 10%;
   width: 100%;
   background-color: #3f4045; }

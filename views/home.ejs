@@ -10,66 +10,9 @@
                         <%}%>
                         <div style="padding: 20px;" id="posts-list-container">
                                 <ul>
-                                        <%foundPost.forEach(function(post){%>
-                                                <li>
-                                                        <%if(locals.user && locals.user.id == post.user.id){%>
-                                                                <small>
-                                                                        <a href="/posts/destroy/<%= post.id %>">X</a>
-                                                                </small>
-                                                        <%}%>
-                                                        
-                                                        <small>
-                                                                <b><%= post.user.name.toUpperCase() %></b>
-                                                        </small>
-                                                        <br>
-                                                        <li><%= post.content %></li>
-                                                        <br>
-                                                        <div id="post-comments">
-                                                                <% if(locals.user){ %>
-                                                                        <form action="/comments/create" method="POST">
-                                                                                <input type="text" name="comment" placeholder="Type Something here." required>
-                                                                                <input type="hidden" name="post" value="<%= post._id %>">
-                                                                                <input type="submit" value="Add comment">
-                                                                        </form>   
-                                                                <%}%>
-                                                                <div class="post-comments-list">
-                                                                        <ul id="post-comments-<%= post._id %>">
-                                                                                <% for(comment of post.comments){%>
-                                                                                        <li>
-                                                                                                <p>     
-                                                                                                        <%if(comment.user.name == post.user.name){%>
-                                                                                                                <%if(locals.user && locals.user.id == comment.user.id){%>
-                                                                                                                        <small>
-                                                                                                                                <a href="/comments/destroy/<%= comment.id %>">X</a>
-                                                                                                                        </small>
-                                                                                                                <%}%>
-                                                                                                                <small style="color: rgb(7, 110, 18);">
-                                                                                                                        Admin :- <%= comment.user.name %>
-                                                                                                                </small>
-                                                                                                                <br>
-                                                                                                                <%= comment.comment %>
-                                                                                                        <%}else{%>
-                                                                                                                <%if(locals.user && locals.user.id == comment.user.id){%>
-                                                                                                                        <small>
-                                                                                                                                <a href="/comments/destroy/<%= comment.id %>">X</a>
-                                                                                                                        </small>
-                                                                                                                <%}%>
-                                                                                                                <small style="color: rgb(7, 110, 18);">
-                                                                                                                        <%= comment.user.name %>
-                                                                                                                </small>
-                                                                                                                <br>
-                                                                                                                <%= comment.comment %>
-                                                                                                        <%}%>
-                                                                                                </p>
-                                                                                        </li>
-                                                                                <%}%>
-                                                                        </ul>
-                                                                </div>
-                                                        </div>
-                                                        <hr style="width: 50%;border: 2px solid grey;">
-                                                        <br>
-                                                </li>
-                                        <%})%>
+                                        <%for(post of foundPost){%>
+                                                <%- include('_post')%>
+                                        <%}%>
                                 </ul>
                         </div>
                         

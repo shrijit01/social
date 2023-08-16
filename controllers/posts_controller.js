@@ -10,10 +10,12 @@ module.exports.create = async function (req, res) {
         })
 
         if (createdPost) {
+            req.flash('success','Post published! ');
             return res.redirect('back');
         }
     } catch (e) {
-        console.log(Error);
+        req.flash('erroe',err);
+        return res.redirect('back');
     }
 }
 
@@ -30,13 +32,14 @@ module.exports.destroy = async function (req, res) {
 
             // Find and delete associated comments
             await Comment.deleteMany({ post: req.params.id });
-
+            req.flash('success','Post   and Associated Comment deleted !');
             return res.redirect('back');
         } else {
+            req.flash('error','you can not delete this post');
             return res.redirect('back');
         }
     } catch (error) {
-        console.error(error);
+        req.flash('erroe',err);
         return res.redirect('back');
     }
 };
