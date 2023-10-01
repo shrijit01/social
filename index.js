@@ -16,6 +16,7 @@ const passport = require('passport');
 
 /* REQUIRED PASSPORT LOCAL STRATEGY */
 const passportLocal = require('./config/passport-local-strategy');
+const passportJWT = require('./config/passport-jwt-strategy');
 
 /* FOR STORING SESSION COOKIE IF SERVER GOT RESTART SESSION COOKIE WILL NOT LOST  */
 const MongoStore = require('connect-mongo');
@@ -46,7 +47,8 @@ app.set("layout extractScripts",true);
 
 //access assets
 app.use(express.static('./assets'));
-
+// make the upload path avaliable to the browser 
+app.use('/uploads',express.static(__dirname +'/uploads'));
 
 //set up the view engine
 app.set('view engine','ejs');

@@ -16,9 +16,8 @@ passport.use(new LocalStrategy({// TELLING PASSPORT TO USE LOCAL STRATEGY
         /* FIND THE USER AND ESTABLISH A IDENTITY */
         const foundUser = await User.findOne({email:email})
             if(!foundUser){
-                req.flash('error',err);
-                // console.log('Error in finding user');
-                return done(Error);
+                req.flash('error',"User not found");
+                return done(null, false, { message: 'User not found' });
             }
             if(!foundUser || foundUser.password != password){
                 req.flash('error','Invalid Username/Password');

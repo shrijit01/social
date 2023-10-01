@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const fs = require('fs');
+const path = require('path');
 
 module.exports.profile =async function(req,res){
     try{
@@ -18,20 +20,32 @@ module.exports.profile =async function(req,res){
 }
 
 module.exports.update = async function(req,res){
-    try{
+    
         if(req.user.id == req.params.id){
-            let updatedUser = await User.findByIdAndUpdate(req.params.id,req.body);
-            // if()
-
-            req.flash('success','User updated Successfully');
-            return res.redirect('/');
-        }else{
-            return res.status(401).send('Unauthorized');
+            try{
+                let updatedUser = await User.findByIdAndUpdate(req.params.id);
+                User.uploadedAvatar(req,res,function(err){
+                    if(err){
+                        console.log('*************multer error',err);
+                    }
+                    // console.log(req.file);
+                    updatedUser.name = req.body.name,
+                    updatedUser.email = req.body.email
+                    if(req.file){
+                        if(updatedUser.avatar){
+                            fs.unlinkSync(path.join(__dirname,'..' ,updatedUser.avatar));
+                        }
+                        /* THIS IS SAVING THE PATH OF THE UPLOAD FILE INTO THE AVATAR FIELD IN THE USER */
+                        updatedUser.avatar = User.avatarpath + '/' + req.file.filename;
+                        updatedUser.save();
+                        return  res.redirect('back');
+                    }
+                });
+            }catch(err){
+                req.flash('error',err);
+                return res.status(401).send('Unauthorized');
+            }
         }
-    }catch(err){
-        console.log('Error',err);
-        return;
-    }
 }
 
 
